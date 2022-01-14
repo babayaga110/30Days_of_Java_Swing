@@ -71,6 +71,11 @@ public class Day_6 extends javax.swing.JFrame {
 
         deleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         deleteBtn.setText("Delete Contact");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
         deleteBtn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 deleteBtnKeyPressed(evt);
@@ -193,12 +198,28 @@ public class Day_6 extends javax.swing.JFrame {
         DefaultTableModel tlbModel = (DefaultTableModel)table.getModel();
         String data[] = {Integer.toString(index),nameTxt.getText(),mobileTxt.getText()};
         tlbModel.addRow(data);
+        JOptionPane.showMessageDialog(this, "Contact Saved");
     }//GEN-LAST:event_addBtnKeyPressed
 
     private void deleteBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deleteBtnKeyPressed
         // TODO add your handling code here:
         table.getSelectedRowCount();
     }//GEN-LAST:event_deleteBtnKeyPressed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tlbModel = (DefaultTableModel)table.getModel();
+          if(table.getSelectedRowCount() == 1){
+                    tlbModel.removeRow(table.getSelectedRow());
+          }else{
+                    if(table.getRowCount() ==0){
+                        JOptionPane.showMessageDialog(this, "Table is Empty");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Please select Single Contact For Delete");
+                    }
+            }
+        
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
     /**
      * @param args the command line arguments
