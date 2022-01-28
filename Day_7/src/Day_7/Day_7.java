@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package Day_7;
-
+import java.io.*;
+import  java.lang.*;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 /**
  *
  * @author DarkMoon
@@ -17,6 +21,22 @@ public class Day_7 extends javax.swing.JFrame {
     public Day_7() {
         initComponents();
     }
+    public Thread t = new Thread(){
+        public void run(){
+            for(int i = 0 ; i < 100 ; i++){
+                final int percent = i;
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        jProgressBar1.setValue(percent);
+                    }
+                  });
+                
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {}
+            }
+        }
+    };
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,11 +74,16 @@ public class Day_7 extends javax.swing.JFrame {
         jLabel3.setText("password");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jProgressBar1.setValue(0);
         jProgressBar1.setStringPainted(true);
-        jProgressBar1.setVerifyInputWhenFocusTarget(false);
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,16 +169,21 @@ public class Day_7 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int i =0;
-
-        while(i<=100){
-            jProgressBar1.setValue(i);
-            try{
-                Thread.sleep(1000);
-            }catch(Exception e){};
-            i =i+10;
+         
+        String username = "123";
+        String passwd = "123";
+        
+        if(jTextField1.getText().equals(username) || jPasswordField1.getPassword().equals(passwd)){
+                t.start();                            
+                
+        }else{
+                    System.out.println("Sorry");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +217,7 @@ public class Day_7 extends javax.swing.JFrame {
             public void run() {
                 new Day_7().setVisible(true);
             }
+            
         });
     }
 
@@ -201,7 +232,7 @@ public class Day_7 extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JProgressBar jProgressBar1;
+    public static javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
