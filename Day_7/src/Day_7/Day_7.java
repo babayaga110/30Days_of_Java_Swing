@@ -21,7 +21,7 @@ public class Day_7 extends javax.swing.JFrame {
     public Day_7() {
         initComponents();
     }
-    public Thread t = new Thread(){
+     Thread t = new Thread(){
         public void run(){
             for(int i = 0 ; i < 100 ; i++){
                 final int percent = i;
@@ -175,7 +175,7 @@ public class Day_7 extends javax.swing.JFrame {
         
         if(jTextField1.getText().equals(username) || jPasswordField1.getPassword().equals(passwd)){
                 t.start();                            
-                
+                JOptionPane.showMessageDialog(this, "Contact Saved");
         }else{
                     System.out.println("Sorry");
         }
